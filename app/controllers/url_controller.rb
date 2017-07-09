@@ -13,7 +13,7 @@ class UrlController < ApplicationController
   end
 
   def show
-    @url = Url.find(id: params[:id])
+    @url = Url.find(params[:id])
 
     if @url
       render :show
