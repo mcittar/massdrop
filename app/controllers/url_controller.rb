@@ -7,5 +7,9 @@ class UrlController < ApplicationController
   def show
 
   end
-  
+
+  def url_params
+    params.permit(:url)
+  end
+
 end
