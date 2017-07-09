@@ -11,7 +11,7 @@
 #
 
 class Url < ApplicationRecord
-  validates :url, :status, presence: true
+  validates :url, presence: true
 
   validates_inclusion_of :status, in: [true, false]
 end
