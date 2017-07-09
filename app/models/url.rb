@@ -14,4 +14,14 @@ class Url < ApplicationRecord
   validates :url, presence: true
 
   validates_inclusion_of :status, in: [true, false]
+
+  before_validation :smart_add_url_protocol
+
+  private
+
+  def smart_add_url_protocol
+    unless self.url[/\Ahttp:\/\//] || self.url[/\Ahttps:\/\//]
+      self.url = "https://#{self.url}"
+    end
+  end
 end

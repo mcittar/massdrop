@@ -1,15 +1,30 @@
 class UrlController < ApplicationController
 
   def create
+    @url = Url.new(url_params)
+
+    if @url.save
+      HardWorker.perform_async(@url.id)
+      render json: { id: @url.id }, status: 200
+    else
+      render json: @url.errors.full_messages, status: 422
+    end
 
   end
 
   def show
+    @url = Url.find(id: params[:id])
+
+    if @url
+      render :show
+    else
+      render json: { message: "no job found" }, status: 200
+    end
 
   end
 
   def url_params
-    params.permit(:url)
+    params.permit(:url, :status)
   end
 
 end
