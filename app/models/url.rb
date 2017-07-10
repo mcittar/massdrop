@@ -21,8 +21,10 @@ class Url < ApplicationRecord
   private
 
   def smart_add_url_protocol
-    unless self.url[/\Ahttp:\/\//] || self.url[/\Ahttps:\/\//]
-      self.url = "https://#{self.url}"
+    if self.url
+      unless self.url[/\Ahttp:\/\//] || self.url[/\Ahttps:\/\//]
+        self.url = "https://#{self.url}"
+      end
     end
   end
 end
