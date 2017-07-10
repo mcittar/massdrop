@@ -51,6 +51,7 @@ group :test do
   gem 'guard-rspec'
   gem 'launchy'
   gem 'rails-controller-testing'
+  gem 'rspec-sidekiq'
   gem 'shoulda-matchers'
 end
 
