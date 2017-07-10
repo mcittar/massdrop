@@ -12,6 +12,7 @@
 
 class Url < ApplicationRecord
   validates :url, presence: true
+  validates :id, :url, uniqueness: true
 
   validates_inclusion_of :status, in: [true, false]
 
