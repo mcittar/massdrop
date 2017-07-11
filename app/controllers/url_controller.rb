@@ -17,10 +17,8 @@ class UrlController < ApplicationController
 
     if @url.status
       render 'url/show.json.jbuilder'
-    elsif @url.status == false
-      render json: { message: "job incomplete, check again later" }, status: 200
     else
-      render json: { message: "no job found" }, status: 200
+      render json: { message: "Job incomplete or does not exist" }, status: 200
     end
 
   end
