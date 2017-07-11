@@ -15,8 +15,10 @@ class UrlController < ApplicationController
   def show
     @url = Url.find_by_id(params[:id])
 
-    if @url
+    if @url.status
       render 'url/show.json.jbuilder'
+    elsif @url.status == false
+      render json: { message: "job incomplete, check again later" }, status: 200
     else
       render json: { message: "no job found" }, status: 200
     end
