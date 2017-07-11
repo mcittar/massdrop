@@ -19,6 +19,8 @@ This app includes unit and integration tests for models and controllers using Rs
 
 To run the Rspec tests use: `bundle exec rspec`
 
+I currently have no built-in end-to-end tests but I used Postman to manually check that my app was working as intended.
+
 ## Models, Controllers, and Workers
 
 This project has only one model, `Url`, located at `app/models/url.rb`. It functions as both a completed and unfinished job.
@@ -37,4 +39,6 @@ Users can then hit my #show api endpoint to see a job's html after that job has 
 
 ## Potential Improvements
 
-One area I would like to improve would be to add more validations and smart corrections of a url. Right now, I have a model method that will add "https://" if it is not included in the user submitted url. I would also want something that checks and automatically corrects errors if "https://" is typed incorrectly or if they didn't put "www" or a ".com". As it stands, a bad url can be submitted and will be saved as a failure in the db, which not ideal. I would look for a service that knows viable urls and check if a url exists in their records before allowing a url to be saved to my db. 
+One area I would like to improve would be to add more validations and smart corrections of a url. Right now, I have a model method that will add "https://" if it is not included in the user submitted url. I would also want something that checks and automatically corrects errors if "https://" is typed incorrectly or if they didn't put "www" or a ".com". As it stands, a bad url can be submitted and will be saved as a failure in the db, which not ideal. I would look for a service that knows viable urls and check if a url exists in their records before allowing a url to be saved to my db.
+
+I would also create more end-to-end tests just to round out the current testing framework I have in place.
