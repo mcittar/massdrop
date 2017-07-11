@@ -16,7 +16,7 @@ class UrlController < ApplicationController
     @url = Url.find_by_id(params[:id])
 
     if @url
-      render :show
+      render 'url/show.json.jbuilder'
     else
       render json: { message: "no job found" }, status: 200
     end

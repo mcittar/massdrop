@@ -17,10 +17,8 @@ RSpec.describe UrlController, type: :controller do
     end
 
     context "with valid params" do
-      Sidekiq::Testing.inline! do
-        before(:each) do
-          post :create, params: { url: 'www.hey-arnold.com' }
-        end
+      before(:each) do
+        post :create, params: { url: 'www.hey-arnold.com' }
       end
       it { should respond_with(200) }
       it "should return job ID" do
@@ -34,6 +32,23 @@ RSpec.describe UrlController, type: :controller do
   end
 
   describe "GET #show" do
-
+    Sidekiq::Testing.inline! do
+      before(:each) do
+        url = Url.create(id: 1, url: 'www.google.com')
+        HardWorker.perform_async(url.id)
+        HardWorker.drain
+        get :show, params: { id: 1 }
+      end
+    end
+    it { should respond_with(200) }
+    it "should return the requested job job" do
+      expect(JSON.parse(response.body)["id"]).to eq(1)
+    end
+    it "should update status after job completion" do
+      expect(JSON.parse(response.body)["status"]).to be true
+    end
+    it "should retrieve html" do
+      expect(JSON.parse(response.body)["html"]).to_not be nil
+    end
   end
 end
